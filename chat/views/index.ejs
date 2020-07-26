@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Lets Chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body class="body text-white">
+    <div class="main">
+        <h1 class="text-center mt-4">
+            <b>Lets Chat....</b>
+        </h1>
+
+        <div class="chat-box-main w-50 mx-auto ">
+            <div class="enter-name text-center">
+                <label for="client-name"><h5>Enter Your Name</h5> </label>
+                <input class="input" type="text" name="client_name" id="client-name">
+                <button class="btn btn-danger let-me-chat">Let me chat!!</button>
+            </div>
+            <div class="mx-auto w-50 text-center" id="msg_for_user"></div>
+            <div class="chat-box mt-2 mx-auto">
+                <div class="msg-area p-2">
+                </div>
+                <div class="w-100" id="msg-n-send">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" class="text-msg w-100" id="text-msg">
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-danger send-button w-100" onclick="send_press()">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var socket = io();
+        window.client_name = "";
+        // when client first time open the page
+        // when it start register to this chat app 
+        $('.let-me-chat').click(function() {
+            window.client_name = document.getElementById('client-name').value;
+            socket.emit('client_name', {
+                client_name: window.client_name
+            });
+        });
+
+        // if client name is already exist otherwise print one msg
+        socket.on('client_result_accept', function(data) {
+            if (data.result) {
+                $('#msg_for_user').html("Welcome in Lets chatt " + data.name);
+            } else {
+                $('#msg_for_user').html("This user name is already exist please choose another one");
+            }
+            setTimeout(() => {
+                $('#msg_for_user').html('')
+            }, 3000);
+        })
+
+        function send_press() {
+            if (window.client_name == "") {
+                $('#msg_for_user').html("Please enter the name to enter the chat");
+                setTimeout(() => {
+                    $('#msg_for_user').html('')
+                }, 3000);
+            } else {
+                text_msg = document.getElementById("text-msg").value;
+                $('.msg-area').append(`<h3 class="text-right">${text_msg}</h3>`);
+                document.getElementById("text-msg").value = "";
+                socket.emit('client_msg', {
+                    new_client_msg: text_msg,
+                    client_name: window.client_name
+                });
+            }
+        }
+
+        socket.on('client_msg_server_to_client', function(data) {
+            if (data.client_name != window.client_name) {
+                $('.msg-area').append(`<h3 class="text-left">${data.msg_client}</h3>`);
+            }
+        })
+
+        $(document).keypress(function(e) {
+            if (e.keyCode == 13) {
+                $('.send-button').click();
+            }
+        })
+    </script>
+</body>
+
+</html>

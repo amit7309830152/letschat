@@ -1,0 +1,49 @@
+body {
+    background: url('../images/bg.jpg');
+    background-size: cover;
+    height: 700px;
+}
+
+#let-me-chat {
+    line-height: 13px;
+}
+
+#client-name {
+    opacity: 0.4;
+}
+
+#msg_for_user {
+    font-style: italic;
+    font-variant: petite-caps;
+    font-weight: bold;
+    background-color: red;
+}
+
+.chat-box {
+    border: 2px solid black;
+    height: 450px;
+    position: relative;
+    border-radius: 30px;
+}
+
+.msg-area {
+    overflow: auto;
+    max-height: 330px;
+}
+
+#msg-n-send {
+    position: absolute;
+    bottom: 0;
+    font-size: large;
+    font-weight: 500;
+    color: white;
+}
+
+.text-msg {
+    line-height: 32px;
+    border-radius: 30px;
+}
+
+.send-button {
+    border-radius: 30px;
+}
