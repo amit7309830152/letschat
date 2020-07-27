@@ -84,6 +84,7 @@
                 text_msg = document.getElementById("text-msg").value;
                 $('.msg-area').append(`<h3 class="text-right">${text_msg}</h3>`);
                 document.getElementById("text-msg").value = "";
+                $('.msg-area').scrollTop($('.msg-area')[0].scrollHeight);
                 socket.emit('client_msg', {
                     new_client_msg: text_msg,
                     client_name: window.client_name
@@ -94,6 +95,7 @@
         socket.on('client_msg_server_to_client', function(data) {
             if (data.client_name != window.client_name) {
                 $('.msg-area').append(`<h3 class="text-left">${data.msg_client}</h3>`);
+                $('.msg-area').scrollTop($('.msg-area')[0].scrollHeight);
             }
         })
 

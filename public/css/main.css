@@ -1,5 +1,5 @@
 body {
-    background: url('../images/bg.jpg');
+    background: url('../images/bg-3.jpg');
     background-size: cover;
     height: 700px;
 }
@@ -29,6 +29,23 @@ body {
 .msg-area {
     overflow: auto;
     max-height: 330px;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+
+.msg-area::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Hide scrollbar for IE, Edge and Firefox */
+
+.msg-area {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 #msg-n-send {
