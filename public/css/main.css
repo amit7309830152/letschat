@@ -2,6 +2,8 @@ body {
     background: url('../images/bg-3.jpg');
     background-size: cover;
     height: 700px;
+    font-family: 'Sofia';
+    font-size: 22px;
 }
 
 #let-me-chat {
@@ -13,22 +15,20 @@ body {
 }
 
 #msg_for_user {
-    font-style: italic;
-    font-variant: petite-caps;
-    font-weight: bold;
     background-color: red;
+    border-radius: 8px!important;
 }
 
 .chat-box {
-    border: 2px solid black;
-    height: 450px;
+    border: 2px solid #887e7e;
+    height: 490px;
     position: relative;
     border-radius: 30px;
 }
 
 .msg-area {
     overflow: auto;
-    max-height: 330px;
+    max-height: 410px;
 }
 
 
@@ -63,4 +63,41 @@ body {
 
 .send-button {
     border-radius: 30px;
+}
+
+.msg-section {
+    border: 1px solid #67515a;
+    padding: 13px;
+    border-radius: 29px;
+    overflow: auto;
+    line-break: anywhere;
+}
+
+.msg-section::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Hide scrollbar for IE, Edge and Firefox */
+
+.msg-section {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+@media only screen and (max-width: 600px) {
+    #client-name {
+        width: 80%;
+    }
+    .chat-box-main {
+        width: 90%!important;
+    }
+    .chat-box {
+        border: 2px solid #887e7e;
+        height: 510px;
+        position: relative;
+        border-radius: 30px;
+    }
 }
