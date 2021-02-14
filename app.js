@@ -5,6 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', function(req, res) {
     res.render('index');
 });
@@ -21,6 +22,13 @@ io.on('connection', function(socket) {
         console.log('A user disconnected');
     });
 
+    // joining of the room
+
+    socket.on('join_room', function(data) {
+        socket.join(data.room_name)
+        console.log('room is joined')
+    })
+
     // registration of the new client
     socket.on('client_name', function(data) {
         if (user.indexOf(data.client_name) > -1) {
@@ -32,11 +40,11 @@ io.on('connection', function(socket) {
     });
 
     socket.on('client_msg', function(data) {
-        io.sockets.emit('client_msg_server_to_client', { msg_client: data.new_client_msg, client_name: data.client_name });
+        socket.broadcast.to(data.room_name).emit('client_msg_server_to_client', { msg_client: data.new_client_msg, client_name: data.client_name })
     });
 
 });
 
-http.listen(process.env.PORT||3000, function() {
+http.listen(process.env.PORT || 3000, function() {
     console.log('server is started');
 });

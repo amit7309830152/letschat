@@ -14,6 +14,10 @@ body {
     opacity: 0.4;
 }
 
+#room-name {
+    opacity: 0.4;
+}
+
 #msg_for_user {
     background-color: red;
     border-radius: 8px!important;
@@ -88,6 +92,9 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
+    #room-name {
+        width: 80%;
+    }
     #client-name {
         width: 80%;
     }
