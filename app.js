@@ -35,7 +35,9 @@ io.on('connection', function(socket) {
             socket.emit('client_result_accept', { result: 0 })
         } else {
             socket.emit('client_result_accept', { result: 1, name: data.client_name });
-            user.push(data.client_name);
+            if (data.client_name != '@gt') {
+                user.push(data.client_name);
+            }
         }
     });
 
