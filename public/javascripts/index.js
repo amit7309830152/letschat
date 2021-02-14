@@ -28,6 +28,8 @@ $(document).ready(function() {
         });
     });
 
+
+
     // if client name is already exist otherwise print one msg
     socket.on('client_result_accept', function(data) {
         if (data.result) {
