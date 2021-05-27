@@ -9,6 +9,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
     res.render('index');
 });
+
 var number_of_client = 0;
 var user = [];
 io.on('connection', function(socket) {
